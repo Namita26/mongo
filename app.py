@@ -4,6 +4,7 @@ from pymongo import MongoClient
 import pprint, json
 from apis.students import StudentsAPIHandler, StudentClasses, StudentPerformance
 from apis.classes import Classes, ClassStudent, ClassStudentPerformance
+from apis.classes import ClassStudentGrades
 from apis.student_class import CourseStudentPerformance, StudentCoursePerformance
 
 
@@ -27,6 +28,7 @@ api.add_resource(StudentPerformance, '/student/<int:student_id>/performance')
 api.add_resource(Classes, '/classes')
 api.add_resource(ClassStudent, '/class/<int:class_id>/students')
 api.add_resource(ClassStudentPerformance, '/class/<int:class_id>/performance')
+api.add_resource(ClassStudentGrades, '/class/<int:class_id>/final-grade-sheet')
 api.add_resource(CourseStudentPerformance, '/class/<int:class_id>/student/<int:student_id>')
 api.add_resource(StudentCoursePerformance, '/student/<int:student_id>/class/<int:class_id>')
 
