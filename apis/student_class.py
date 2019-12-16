@@ -30,7 +30,12 @@ class StudentCoursePerformance(Resource):
 		self.db = app.config["db"]
 
 	def get(self, student_id, class_id):
-
+		"""
+		Fetch all classes a user student belongs to and total marks
+		a student has obtained in a class.
+		:param student_id:
+		:param class_id
+		"""
 		if not self.db["students"].find_one({"_id": student_id}):
 			return {"message": "Invalid student id."}
 
@@ -46,7 +51,12 @@ class CourseStudentPerformance(Resource):
 		self.db = app.config["db"]
 
 	def get(self, class_id, student_id):
-
+		"""
+		Fetch all classes a user student belongs to and total marks
+		a student has obtained in a class.
+		:param student_id:
+		:param class_id
+		"""
 		if not self.db["students"].find_one({"_id": student_id}):
 			return {"message": "Invalid student id."}
 

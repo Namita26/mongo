@@ -6,12 +6,15 @@ from flask import request
 from flask_restful import Resource
 
 
-class StudentsAPIHandler(Resource):
+class Student(Resource):
 
     def __init__(self):
         self.db = app.config["db"]
 
     def get(self):
+        """
+        Fetch all students with id and name as details.
+        """
         student_documents = []
         students = self.db['students']
         for student in students.find().sort("_id"):
@@ -20,13 +23,16 @@ class StudentsAPIHandler(Resource):
         return student_documents
 
 
-class StudentClasses(Resource):
+class StudentClass(Resource):
 
 	def __init__(self):
 		self.db = app.config["db"]
 
 	def get(self, student_id):
-
+		"""
+		Fetch all classes a user student belongs to.
+		:param student_id<int>
+		"""
 		if not self.db["students"].find_one({"_id": student_id}):
 			return {"message": "Invalid student id."}
 
@@ -46,7 +52,11 @@ class StudentPerformance(Resource):
 		self.db = app.config["db"]
 	
 	def get(self, student_id):
-
+		"""
+		Fetch all classes a user student belongs to and total marks
+		a student has obtained per class.
+		:param student_id<int>
+		"""
 		if not self.db["students"].find_one({"_id": student_id}):
 			return {"message": "Invalid student id."}
 

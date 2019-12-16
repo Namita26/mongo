@@ -13,7 +13,7 @@ class Classes(Resource):
 
 	def get(self):
 		"""
-		Fetch all classes present.
+		Fetch all classes present in the database.
 		"""
 		class_objects = []
 		class_id_objects = {}
@@ -34,7 +34,7 @@ class ClassStudent(Resource):
 
 	def get(self, class_id):
 		"""
-		Fetch all classes present.
+		Fetch all students present based on the class_id in the database.
 		"""
 		student_objects = []
 		class_wise_records = self.db['grades'].find({"class_id": class_id})
@@ -53,7 +53,10 @@ class ClassStudentPerformance(Resource):
 
 	def get(self, class_id):
 		"""
-		Fetch all classes present.
+		Fetch all students present with input class_id and calulates marked
+		obtained in all types of exams.
+
+		:param class_id<int>
 		"""
 		student_objects = []
 		class_wise_records = self.db['grades'].find({"class_id": class_id})
@@ -69,14 +72,21 @@ class ClassStudentPerformance(Resource):
 		return {"class_id": class_id, "students": student_objects}
 
 
-class ClassStudentGrades(Resource):
+class ClassStudentGrade(Resource):
 
 	def __init__(self):
 		self.db = app.config["db"]
 
 	def get(self, class_id):
 		"""
-		Fetch all classes present.
+		Fetch all students present with input class_id and calulates marked
+		and calculates grades based on the following criteria.
+		- Top 1/12th of the class (you can take floor if it comes out be a fraction) gets grade "A"
+		- Next 1/6th of the class gets grade "B"
+		- Next 1/4th of the class gets grade "C"
+		- Rest of the class gets grade "D"
+
+		:param class_id<int>
 		"""
 		student_objects = []
 		# class_wise_records = grades.get_grade_records_by_class_id(self.db, class_id)
